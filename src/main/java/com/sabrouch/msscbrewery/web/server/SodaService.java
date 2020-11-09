@@ -12,4 +12,10 @@ import java.util.UUID;
 public interface SodaService {
 
     SodaDto getSodaById(UUID id);
+
+    SodaDto saveSoda(SodaDto sodaDto);
+
+    void updateSoda(UUID sodaId, SodaDto sodaDto);
+
+    void deleteById(UUID beerId);
 }
