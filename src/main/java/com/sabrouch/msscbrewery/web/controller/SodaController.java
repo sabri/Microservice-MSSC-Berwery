@@ -24,7 +24,7 @@ public class SodaController {
         this.sodaService = sodaService;
     }
 
-    @GetMapping("/{SodaId}")
+    @GetMapping({"/{sodaId}"})
     public ResponseEntity<SodaDto> getSoda(@PathVariable("SodaId") UUID SodaId){
 
         return new ResponseEntity<>(sodaService.getSodaById(SodaId), HttpStatus.OK);
@@ -38,7 +38,7 @@ public class SodaController {
       headers.add("location","/api/v1/soda/" +sodaDto1.getId().toString());
       return new ResponseEntity(headers, HttpStatus.CREATED);
     }
-    @PostMapping("/{SodaId}")
+    @PostMapping({"/{sodaId}"})
     public ResponseEntity handleUpdate ( @PathVariable("SodaId") UUID SodaId, @RequestBody SodaDto sodaDto){
 sodaService.updateSoda(SodaId, sodaDto);
 return new ResponseEntity(HttpStatus.NO_CONTENT);
