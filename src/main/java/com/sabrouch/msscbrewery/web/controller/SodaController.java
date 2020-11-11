@@ -25,9 +25,9 @@ public class SodaController {
     }
 
     @GetMapping({"/{sodaId}"})
-    public ResponseEntity<SodaDto> getSoda(@PathVariable("SodaId") UUID SodaId){
+    public ResponseEntity<SodaDto> getSodaById(@PathVariable("sodaId") UUID sodaId){
 
-        return new ResponseEntity<>(sodaService.getSodaById(SodaId), HttpStatus.OK);
+        return new ResponseEntity<>(sodaService.getSodaById(sodaId), HttpStatus.OK);
     }
 
     @PostMapping
@@ -35,17 +35,17 @@ public class SodaController {
 
         SodaDto sodaDto1 = sodaService.saveSoda(sodaDto);
       HttpHeaders headers = new HttpHeaders();
-      headers.add("location","/api/v1/soda/" +sodaDto1.getId().toString());
+      headers.add("Location","/api/v1/soda/" +sodaDto1.getId().toString());
       return new ResponseEntity(headers, HttpStatus.CREATED);
     }
-    @PostMapping({"/{sodaId}"})
-    public ResponseEntity handleUpdate ( @PathVariable("SodaId") UUID SodaId, @RequestBody SodaDto sodaDto){
-sodaService.updateSoda(SodaId, sodaDto);
+    @PutMapping({"/{sodaId}"})
+    public ResponseEntity handleUpdate ( @PathVariable("sodaId") UUID sodaId, @RequestBody SodaDto sodaDto){
+sodaService.updateSoda(sodaId, sodaDto);
 return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
     @DeleteMapping({"/{sodaId}"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteBeer(@PathVariable("sodaId") UUID beerId){
-        sodaService.deleteById(beerId);
+    public void deleteBeer(@PathVariable("sodaId") UUID sodaId){
+        sodaService.deleteById(sodaId);
     }
 }

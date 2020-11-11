@@ -35,32 +35,33 @@ class SodaControllerTest {
         @Autowired
         ObjectMapper objectMapper;
 
-       SodaDto validBeer;
+       SodaDto validSoda;
 
         @Before
         public void setUp() {
-            validBeer = SodaDto.builder().id(UUID.randomUUID())
-                    .name("COCA")
-                    .CocaStyle("cosx")
+            validSoda = SodaDto.builder().id(UUID.randomUUID())
+                    .name("Coca")
+                    .cocaStyle("boite")
                     .upc(123456789012L)
                     .build();
         }
 
         @Test
-        public void getSoda() throws Exception {
-            given(sodaService.getSodaById(any(UUID.class))).willReturn(validBeer);
+        public void getSodaById() throws Exception {
+            given(sodaService.getSodaById(any(UUID.class))).willReturn(validSoda);
 
-            mockMvc.perform(get("/api/v1/soda/" + validBeer.getId().toString()).accept(MediaType.APPLICATION_JSON))
+            mockMvc.perform(get("/api/v1/soda/" + validSoda.getId().toString()).accept(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk())
-                    .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                    .andExpect(jsonPath("$.id", is(validBeer.getId().toString())))
-                    .andExpect(jsonPath("$.name", is("COCA")));
+                    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(jsonPath("$.id", is(validSoda.getId().toString())))
+                    .andExpect(jsonPath("$.beerName", is("Coca")));
         }
 
-        @Test
+
+    @Test
         public void handlePost() throws Exception {
             //given
-            SodaDto sodaDto = validBeer;
+            SodaDto sodaDto = validSoda;
             sodaDto.setId(null);
             SodaDto savedDto = SodaDto.builder().id(UUID.randomUUID()).name("COCA1").build();
             String beerDtoJson = objectMapper.writeValueAsString(sodaDto);
@@ -77,11 +78,11 @@ class SodaControllerTest {
         @Test
         public void handleUpdate() throws Exception {
             //given
-            SodaDto beerDto = validBeer;
+            SodaDto beerDto = validSoda;
             String beerDtoJson = objectMapper.writeValueAsString(beerDto);
 
             //when
-            mockMvc.perform(put("/api/v1/soda/" + validBeer.getId())
+                mockMvc.perform(put("/api/v1/soda/" + validSoda.getId())
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(beerDtoJson))
                     .andExpect(status().isNoContent());

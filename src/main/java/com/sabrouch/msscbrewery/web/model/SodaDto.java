@@ -19,6 +19,6 @@ import java.util.UUID;
 public class SodaDto {
     private UUID id;
     private String name;
-    private String CocaStyle;
+    private String cocaStyle;
     private Long upc;
 }

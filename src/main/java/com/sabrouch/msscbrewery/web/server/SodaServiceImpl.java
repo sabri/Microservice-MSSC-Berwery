@@ -18,7 +18,7 @@ public class SodaServiceImpl implements SodaService {
     public SodaDto getSodaById(UUID id) {
         return SodaDto.builder().id(UUID.randomUUID())
                 .name("Coca")
-                .CocaStyle("boite")
+                .cocaStyle("boite")
                 .build();
     }
 
@@ -34,6 +34,6 @@ public class SodaServiceImpl implements SodaService {
 
     @Override
     public void deleteById(UUID beerId) {
-        log.debug("Deleting a beer...");
+        log.debug("Deleting a soda...");
     }
 }
